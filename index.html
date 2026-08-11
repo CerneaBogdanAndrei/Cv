@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cernea Bogdan-Andrei — Full-Stack Developer</title>
+<meta name="description" content="Full-Stack Developer | Computer Science Student — Galati, Romania">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0e14'/%3E%3Ctext x='50' y='68' font-size='58' font-family='monospace' fill='%2322d3ee' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e14;
+  --bg-panel:#10151f;
+  --bg-panel-2:#141b26;
+  --border:#1f2733;
+  --border-soft:#171e29;
+  --text:#e6edf3;
+  --text-muted:#8a95a5;
+  --text-dim:#576073;
+  --cyan:#22d3ee;
+  --cyan-soft:rgba(34,211,238,0.10);
+  --violet:#a78bfa;
+  --violet-soft:rgba(167,139,250,0.10);
+  --radius:6px;
+  --maxw:920px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 0);
+  background-size:28px 28px;
+  pointer-events:none;
+  z-index:0;
+}
+a{color:var(--cyan);text-decoration:none;}
+a:hover{text-decoration:underline;}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:2px;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+header.topbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(10,14,20,0.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-soft);
+}
+.topbar-inner{
+  max-width:var(--maxw);margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;
+  color:var(--text);
+  font-size:15px;
+  letter-spacing:0.02em;
+}
+.logo span{color:var(--cyan);}
+.topbar-links{display:flex;gap:18px;align-items:center;}
+.topbar-links a{
+  color:var(--text-muted);
+  font-size:13px;
+  font-family:'JetBrains Mono',monospace;
+  display:flex;align-items:center;gap:6px;
+}
+.topbar-links a:hover{color:var(--cyan);text-decoration:none;}
+.topbar-links svg{width:15px;height:15px;flex-shrink:0;}
+
+.hero{padding:88px 0 64px;}
+.hero-prompt{
+  font-family:'JetBrains Mono',monospace;
+  color:var(--violet);
+  font-size:14px;
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-prompt::before{content:"$";color:var(--text-dim);}
+.hero h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(34px,6vw,54px);
+  line-height:1.08;
+  margin:0 0 6px;
+  letter-spacing:-0.01em;
+}
+.hero h1 .cursor{
+  display:inline-block;
+  width:0.5ch;
+  background:var(--cyan);
+  color:var(--cyan);
+  animation:blink 1s step-end infinite;
+}
+@media (prefers-reduced-motion:reduce){.hero h1 .cursor{animation:none;}}
+@keyframes blink{50%{opacity:0;}}
+.hero .role{
+  font-family:'JetBrains Mono',monospace;
+  color:var(--text-muted);
+  font-size:clamp(14px,2vw,17px);
+  margin:14px 0 8px;
+}
+.hero .role .sep{color:var(--text-dim);margin:0 8px;}
+.hero .role .accent{color:var(--violet);}
+.hero .loc{
+  color:var(--text-dim);
+  font-size:14px;
+  margin-bottom:30px;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;}
+.btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13.5px;
+  padding:10px 18px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text);
+  transition:border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.btn:hover{text-decoration:none;border-color:var(--cyan);background:var(--cyan-soft);transform:translateY(-1px);}
+.btn.primary{background:var(--cyan-soft);border-color:rgba(34,211,238,0.35);color:var(--cyan);}
+.btn.primary:hover{background:rgba(34,211,238,0.18);}
+.btn svg{width:15px;height:15px;}
+
+section{padding:52px 0;border-top:1px solid var(--border-soft);}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  color:var(--cyan);
+  font-size:13.5px;
+  margin-bottom:22px;
+  display:flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:"$";color:var(--text-dim);}
+.reveal{opacity:1;transform:none;}
+.js-anim .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+.js-anim .reveal.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.js-anim .reveal{opacity:1;transform:none;transition:none;}}
+
+.about p{color:var(--text-muted);font-size:15.5px;max-width:70ch;margin:0;}
+
+.timeline{position:relative;padding-left:26px;}
+.timeline::before{
+  content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;
+  background:linear-gradient(var(--violet),var(--border) 92%);
+  opacity:0.5;
+}
+.tl-item{position:relative;padding-bottom:36px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{
+  content:"";position:absolute;left:-26px;top:5px;width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--violet);
+}
+.tl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:4px;}
+.tl-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;color:var(--text);}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--text-dim);margin-left:auto;white-space:nowrap;}
+.tl-org{color:var(--violet);font-size:14px;margin-bottom:10px;}
+.tl-item ul{margin:8px 0 10px;padding-left:18px;color:var(--text-muted);font-size:14.5px;}
+.tl-item li{margin-bottom:5px;}
+.tl-tech{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);}
+.tl-tech span{color:var(--text-muted);}
+
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media (max-width:680px){.projects-grid{grid-template-columns:1fr;}}
+.card{
+  background:var(--bg-panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  display:flex;flex-direction:column;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.card:hover{border-color:rgba(34,211,238,0.35);transform:translateY(-2px);}
+.card-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;margin-bottom:4px;}
+.card-meta{font-size:12.5px;color:var(--text-dim);margin-bottom:2px;}
+.card-award{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--violet);
+  margin-bottom:10px;
+}
+.card-award svg{width:12px;height:12px;}
+.card p.card-desc{color:var(--text-muted);font-size:13.5px;margin:8px 0 12px;flex-grow:1;}
+.card ul{margin:6px 0 12px;padding-left:16px;color:var(--text-muted);font-size:13.5px;}
+.card li{margin-bottom:4px;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
+.tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  padding:3px 7px;
+  border-radius:4px;
+  background:var(--violet-soft);
+  color:var(--violet);
+  border:1px solid rgba(167,139,250,0.18);
+}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px 28px;}
+.skill-cat{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:12.5px;margin-bottom:10px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.skill-tag{
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  padding:4px 9px;border-radius:4px;
+  background:var(--bg-panel);border:1px solid var(--border);color:var(--text-muted);
+}
+
+.cert-list{list-style:none;margin:0;padding:0;}
+.cert-list li{
+  padding:14px 0;border-bottom:1px solid var(--border-soft);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;
+}
+.cert-list li:last-child{border-bottom:none;}
+.cert-name{font-weight:600;color:var(--text);font-size:14.5px;}
+.cert-org{color:var(--violet);font-size:13.5px;}
+.cert-year{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);margin-left:auto;}
+.cert-desc{width:100%;color:var(--text-muted);font-size:13.5px;}
+
+.flag-box{
+  background:var(--bg-panel);
+  border:1px solid rgba(167,139,250,0.25);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  margin-bottom:20px;
+}
+.flag-box .flag-line{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13.5px;color:var(--cyan);
+  margin-bottom:8px;
+}
+.flag-box .flag-line .k{color:var(--text-dim);}
+.flag-box h3{font-family:'Space Grotesk',sans-serif;margin:0 0 6px;font-size:16px;}
+.flag-box p{margin:0;color:var(--text-muted);font-size:13.5px;}
+
+.other-list{list-style:none;margin:0;padding:0;}
+.other-list li{padding:12px 0;border-bottom:1px solid var(--border-soft);}
+.other-list li:last-child{border-bottom:none;}
+.other-list .ot-title{font-weight:600;font-size:14px;}
+.other-list .ot-meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);}
+.other-list p{margin:4px 0 0;color:var(--text-muted);font-size:13.5px;}
+
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+@media (max-width:680px){.bottom-grid{grid-template-columns:1fr;}}
+.bottom-grid h3{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 10px;color:var(--text);}
+.bottom-grid p{margin:0;color:var(--text-muted);font-size:14px;}
+.lang-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-soft);font-size:14px;}
+.lang-row:last-child{border-bottom:none;}
+.lang-row .lname{font-weight:600;}
+.lang-row .llevel{color:var(--text-muted);font-size:13px;}
+
+footer{padding:40px 0 60px;}
+.footer-inner{
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;
+  border-top:1px solid var(--border-soft);padding-top:28px;
+}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;}
+.footer-links a{
+  font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-muted);
+  display:flex;align-items:center;gap:6px;
+}
+.footer-links a:hover{color:var(--cyan);text-decoration:none;}
+.footer-links svg{width:14px;height:14px;}
+.copyright{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">bogdan<span>@</span>galati<span>:~$</span></div>
+    <div class="topbar-links">
+      <a href="mailto:cerneabogdanandrei@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg><span>Email</span></a>
+      <a href="https://www.linkedin.com/in/cernea-bogdan-andrei-bb4540419/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V23h-4v-6.7c0-1.6-.03-3.65-2.22-3.65-2.23 0-2.57 1.74-2.57 3.53V23h-4V8.5z"/></svg><span>LinkedIn</span></a>
+      <a href="https://github.com/CerneaBogdanAndrei" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.42.36.78 1.08.78 2.18 0 1.57-.02 2.84-.02 3.23 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg><span>GitHub</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-prompt">whoami</div>
+    <h1>Cernea Bogdan-Andrei<span class="cursor mono">&nbsp;</span></h1>
+    <div class="role">Full-Stack Developer<span class="sep">·</span><span class="accent">Computer Science Student</span><span class="sep">·</span>CTF Competitor</div>
+    <div class="loc mono">Galați, Romania</div>
+    <div class="hero-actions">
+      <a class="btn primary" href="mailto:cerneabogdanandrei@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
+        cerneabogdanandrei@gmail.com
+      </a>
+      <a class="btn" href="https://www.linkedin.com/in/cernea-bogdan-andrei-bb4540419/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V23h-4v-6.7c0-1.6-.03-3.65-2.22-3.65-2.23 0-2.57 1.74-2.57 3.53V23h-4V8.5z"/></svg>
+        LinkedIn
+      </a>
+      <a class="btn" href="https://github.com/CerneaBogdanAndrei" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.42.36.78 1.08.78 2.18 0 1.57-.02 2.84-.02 3.23 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>
+        GitHub
+      </a>
+      <a class="btn" href="tel:+40771511797">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +40 771 511 797
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap reveal">
+    <div class="eyebrow">cat about.md</div>
+    <p>Full-Stack Developer with proven experience building scalable web applications using TypeScript, NestJS and React. Hands-on expertise in relational database architecture, Docker containerisation, real-time systems and machine learning for image classification. Third-year Computer Science &amp; IT student at "Dunarea de Jos" University (Galati, Romania), with a strong portfolio of complex projects and active professional experience through real-world internships.</p>
+  </div>
+</section>
+
+<section class="experience">
+  <div class="wrap reveal">
+    <div class="eyebrow">git log --experience</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">IT Technician &amp; Web Developer (part-time)</span>
+          <span class="tl-date">Mar 2026 – Aug 2026</span>
+        </div>
+        <div class="tl-org">GlobalECR CRIS SRL</div>
+        <ul>
+          <li>Configuration and installation of fiscal cash registers; connectivity and troubleshooting for ANAF government servers.</li>
+          <li>Development and modernisation of globalecr.ro with fluid animations, responsive design and intuitive UX, using React and TypeScript.</li>
+          <li>Direct team collaboration for the iterative delivery of new features.</li>
+        </ul>
+        <div class="tl-tech">tech: <span>React, TypeScript, HTML/CSS</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">Internship — Full-Stack Developer</span>
+          <span class="tl-date">2026</span>
+        </div>
+        <div class="tl-org">WindRiver Systems</div>
+        <ul>
+          <li>Developed a full-stack academic timetable application for the faculty as part of a 5-person team.</li>
+          <li>Built the frontend in React and TypeScript; implemented API connectivity and student account sorting using Python.</li>
+          <li>Implemented NestJS modules with Prisma ORM for academic data management.</li>
+          <li>Set up Docker infrastructure and integrated LDAP authentication with the university identity system.</li>
+          <li>Collaborated using Git workflows (branch strategy, pull requests, code review).</li>
+        </ul>
+        <div class="tl-tech">tech: <span>TypeScript, React, Python, NestJS, Prisma ORM, PostgreSQL, Docker, LDAP, Git</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">Internship — Web Developer</span>
+          <span class="tl-date">2025</span>
+        </div>
+        <div class="tl-org">APAN</div>
+        <ul>
+          <li>Development and styling of dynamic web pages in a real production environment.</li>
+        </ul>
+        <div class="tl-tech">tech: <span>HTML, CSS, PHP</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <span class="tl-title">Academic Internship — Developer</span>
+          <span class="tl-date">2025</span>
+        </div>
+        <div class="tl-org">Faculty ACIEE</div>
+        <ul>
+          <li>Individual project: Java desktop application for managing a car repair service (clients, vehicles, bookings, interventions).</li>
+          <li>MVC architecture with DAO classes and MySQL connectivity via JDBC.</li>
+          <li>Role-based authentication and dynamic UI (admin, owner, employee), with a switchable Dark Mode.</li>
+        </ul>
+        <div class="tl-tech">tech: <span>Java, Swing, JDBC, MySQL, NetBeans</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="projects">
+  <div class="wrap reveal">
+    <div class="eyebrow">ls ~/projects</div>
+    <div class="projects-grid">
+
+      <div class="card">
+        <div class="card-title">CTI Timetable Application</div>
+        <div class="card-meta">WindRiver Internship + University Project · 5-person team · ongoing</div>
+        <ul>
+          <li>Full-stack academic timetable application for the faculty, with LDAP-secured authentication.</li>
+          <li>Frontend built in React and TypeScript; API connectivity and student sorting in Python.</li>
+          <li>Containerised deployment with Docker for dev/prod consistency.</li>
+        </ul>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Python</span><span class="tag">NestJS</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">LDAP</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Voxel Engine — Browser Minecraft Clone</div>
+        <div class="card-meta">Personal project · ongoing</div>
+        <ul>
+          <li>Voxel-based graphics engine running natively in the browser, strict OOP architecture.</li>
+          <li>3D structures converted to linear Uint8Array buffers with O(1) access.</li>
+          <li>Render optimisation via face culling, significantly reducing draw calls.</li>
+        </ul>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">WebGL</span><span class="tag">Three.js</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">AI Medicinal Plant Identification System</div>
+        <div class="card-meta">Team project · Android (.apk) &amp; Windows (.exe)</div>
+        <div class="card-award"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>2nd Place, Severin Bumbaru Creativity Contest</div>
+        <ul>
+          <li>End-to-end app identifying 15+ medicinal plant species through image processing.</li>
+          <li>Cross-platform architecture delivered and tested on Android and Windows desktop.</li>
+          <li>Full database design and backend integration using Supabase.</li>
+        </ul>
+        <div class="tags"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">EfficientNetV2</span><span class="tag">TypeScript</span><span class="tag">Supabase</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Hydrogen Cogeneration Station</div>
+        <div class="card-meta">Team project · Future Energy Solutions</div>
+        <div class="card-award"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>1st Mention, E.ON Energy Challenge</div>
+        <ul>
+          <li>Research and prototyping of a hydrogen-based cogeneration station.</li>
+          <li>Argued the necessity of an anti-flashback valve over the rudimentary bubbling system.</li>
+          <li>Presented the technical solution to the national jury.</li>
+        </ul>
+        <div class="tags"><span class="tag">Research</span><span class="tag">Prototyping</span><span class="tag">Thermodynamics</span><span class="tag">Safety Systems</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">GurmandFit — Nutrition Blog Modernisation</div>
+        <div class="card-meta">Personal project · ongoing</div>
+        <ul>
+          <li>Full migration from WordPress to a custom full-stack architecture in TypeScript.</li>
+          <li>Rich-text post editor similar to Microsoft Word, built into the site interface.</li>
+          <li>Structured database with dedicated modules for recipes, workouts and nutrition.</li>
+        </ul>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">PostgreSQL</span><span class="tag">Supabase</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Auto Dealership Management Portal</div>
+        <div class="card-meta">Team project · Multi-role</div>
+        <ul>
+          <li>Multi-role system (sales, technical, IT, mechanic) with real-time task routing.</li>
+          <li>Authentication with JS logic differentiating employees from clients.</li>
+        </ul>
+        <div class="tags"><span class="tag">Retool</span><span class="tag">Supabase</span><span class="tag">JavaScript</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Insurance Company Portal</div>
+        <div class="card-meta">Academic project</div>
+        <ul>
+          <li>Complete web solution for managing contracts and client data.</li>
+          <li>PHP backend with relational data storage.</li>
+        </ul>
+        <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PHP (PDO)</span><span class="tag">MySQL</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Car Service Management Desktop App</div>
+        <div class="card-meta">Academic Internship, Faculty ACIEE · 2025</div>
+        <ul>
+          <li>Desktop app for managing clients, vehicles, bookings and interventions.</li>
+          <li>MVC architecture with DAO classes; role-based auth and dynamic panels.</li>
+          <li>Modern Swing GUI with switchable Dark Mode.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Swing</span><span class="tag">JDBC</span><span class="tag">MySQL</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="skills">
+  <div class="wrap reveal">
+    <div class="eyebrow">grep -r "skills" ./stack</div>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-cat">languages</div>
+        <div class="skill-tags"><span class="skill-tag">TypeScript</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">PHP</span><span class="skill-tag">SQL</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">frontend</div>
+        <div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">Next.js</span><span class="skill-tag">WebGL</span><span class="skill-tag">Three.js</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">backend</div>
+        <div class="skill-tags"><span class="skill-tag">NestJS</span><span class="skill-tag">Node.js</span><span class="skill-tag">Prisma ORM</span><span class="skill-tag">REST APIs</span><span class="skill-tag">PHP (PDO)</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">databases</div>
+        <div class="skill-tags"><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Supabase</span><span class="skill-tag">Firebase</span><span class="skill-tag">MySQL</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">devops</div>
+        <div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Linux</span><span class="skill-tag">Git</span><span class="skill-tag">LDAP</span><span class="skill-tag">CI/CD</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">ml / ai</div>
+        <div class="skill-tags"><span class="skill-tag">TensorFlow</span><span class="skill-tag">EfficientNetV2</span><span class="skill-tag">Image Classification</span></div>
+      </div>
+      <div>
+        <div class="skill-cat">tools</div>
+        <div class="skill-tags"><span class="skill-tag">VS Code</span><span class="skill-tag">IntelliJ IDEA</span><span class="skill-tag">Google Antigravity</span><span class="skill-tag">XAMPP</span><span class="skill-tag">Retool</span><span class="skill-tag">Figma</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="certifications">
+  <div class="wrap reveal">
+    <div class="eyebrow">cat certifications.log</div>
+    <ul class="cert-list">
+      <li>
+        <span class="cert-name">Elements of AI</span>
+        <span class="cert-org">— University of Helsinki / MinnaLearn</span>
+        <span class="cert-year">2024</span>
+        <span class="cert-desc">2 ECTS credit course, fundamentals of AI and machine learning.</span>
+      </li>
+      <li>
+        <span class="cert-name">Digital Skills Wallet</span>
+        <span class="cert-org">— EU Micro-credentials</span>
+        <span class="cert-year">2026</span>
+        <span class="cert-desc">AI in search &amp; social media, misinformation/bias in AI content, data collection, data mining fundamentals.</span>
+      </li>
+      <li>
+        <span class="cert-name">PC Operator</span>
+        <span class="cert-org">— Word, Excel, PowerPoint — Social Trade</span>
+        <span class="cert-year">2022</span>
+        <span class="cert-desc">Computer operation course covering the Office suite.</span>
+      </li>
+      <li>
+        <span class="cert-name">Entrepreneurship</span>
+        <span class="cert-org">— Social Trade</span>
+        <span class="cert-year">2022</span>
+        <span class="cert-desc">Fundamentals of starting and growing a business.</span>
+      </li>
+      <li>
+        <span class="cert-name">Social Entrepreneurship</span>
+        <span class="cert-org">— Social Trade</span>
+        <span class="cert-year">2025</span>
+        <span class="cert-desc">Full business plan for an eco-friendly cafe (GreenBrew) — model, SMART goals, financial &amp; risk plan.</span>
+      </li>
+      <li>
+        <span class="cert-name">Financial-Accounting Entrepreneurship</span>
+        <span class="cert-org">— UGAL</span>
+        <span class="cert-desc">Course within the study programme, focused on financial-accounting management.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="achievements">
+  <div class="wrap reveal">
+    <div class="eyebrow">cat achievements.log</div>
+
+    <div class="flag-box">
+      <div class="flag-line"><span class="k">$</span> ./capture_the_flag --event="CyberSea Fest" --result=SUCCESS</div>
+      <h3>3rd Place — CyberSea Fest CTF</h3>
+      <p>Organised by Chronos Security (2026): national cybersecurity competition — OSINT, cryptography, web exploitation, Windows/Linux challenges.</p>
+    </div>
+
+    <ul class="other-list">
+      <li>
+        <span class="ot-title">AIESEC Galati — Volunteer</span>
+        <span class="ot-meta mono"> · Nov 2023 – Feb 2024</span>
+        <p>International volunteering campaigns, cross-cultural communication.</p>
+      </li>
+      <li>
+        <span class="ot-title">Assistant Manager — Access Visual Art Galati</span>
+        <span class="ot-meta mono"> · 2019–2022</span>
+        <p>Course supervision, client relationship management.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="edu-lang">
+  <div class="wrap reveal">
+    <div class="eyebrow">cat education.yml languages.yml</div>
+    <div class="bottom-grid">
+      <div>
+        <h3>Education</h3>
+        <p><strong style="color:var(--text)">Computer Science &amp; Information Technology (CTI)</strong><br>
+        "Dunarea de Jos" University of Galati — Faculty ACIEE<br>
+        <span class="mono" style="color:var(--text-dim);font-size:13px;">2023 – present · Year III</span></p>
+      </div>
+      <div>
+        <h3>Languages</h3>
+        <div class="lang-row"><span class="lname">Romanian</span><span class="llevel">Native</span></div>
+        <div class="lang-row"><span class="lname">English</span><span class="llevel">B1+ · Cambridge Certificate (2018)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="mailto:cerneabogdanandrei@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>cerneabogdanandrei@gmail.com</a>
+        <a href="https://www.linkedin.com/in/cernea-bogdan-andrei-bb4540419/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V23h-4v-6.7c0-1.6-.03-3.65-2.22-3.65-2.23 0-2.57 1.74-2.57 3.53V23h-4V8.5z"/></svg>LinkedIn</a>
+        <a href="https://github.com/CerneaBogdanAndrei" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.34.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.42.36.78 1.08.78 2.18 0 1.57-.02 2.84-.02 3.23 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>GitHub</a>
+      </div>
+      <div class="copyright">© 2026 Cernea Bogdan-Andrei — exit 0</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var h1 = document.querySelector('.hero h1');
+  var full = "Cernea Bogdan-Andrei";
+  if(!reduce && h1){
+    var cursor = h1.querySelector('.cursor');
+    h1.childNodes[0].nodeValue = "";
+    var i = 0;
+    function type(){
+      if(i <= full.length){
+        h1.childNodes[0].nodeValue = full.slice(0, i);
+        i++;
+        setTimeout(type, 42);
+      }
+    }
+    type();
+  }
+
+  var items = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    document.documentElement.classList.add('js-anim');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.08});
+    items.forEach(function(el){obs.observe(el);});
+    setTimeout(function(){
+      items.forEach(function(el){el.classList.add('in');});
+    }, 4000);
+  }
+})();
+</script>
+
+</body>
+</html>
