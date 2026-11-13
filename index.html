@@ -270,6 +270,108 @@ footer{padding:40px 0 60px;}
 .footer-links a:hover{color:var(--cyan);text-decoration:none;}
 .footer-links svg{width:14px;height:14px;}
 .copyright{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);}
+.btn.download{border-color:rgba(167,139,250,0.4);color:var(--violet);background:var(--violet-soft);cursor:pointer;font:inherit;font-family:'JetBrains Mono',monospace;font-size:13.5px;}
+.btn.download:hover{border-color:var(--violet);background:rgba(167,139,250,0.18);}
+
+.cv-modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+  background:rgba(5,8,12,0.72);backdrop-filter:blur(4px);padding:20px;}
+.cv-modal.open{display:flex;}
+.cv-modal-box{background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;padding:24px;
+  width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.5);position:relative;}
+.cv-modal-box .flag-line{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--cyan);margin-bottom:10px;}
+.cv-modal-box .flag-line .k{color:var(--text-dim);}
+.cv-modal-box h3{font-family:'Space Grotesk',sans-serif;margin:0 0 4px;font-size:18px;}
+.cv-modal-box p{margin:0 0 18px;color:var(--text-muted);font-size:13.5px;}
+.cv-options{display:grid;gap:10px;}
+.cv-option{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:var(--radius);
+  border:1px solid var(--border);background:var(--bg-panel-2);color:var(--text);font-size:14px;
+  transition:border-color .15s ease, background .15s ease;}
+.cv-option:hover{text-decoration:none;border-color:var(--cyan);background:var(--cyan-soft);}
+.cv-option .lang{font-weight:600;}
+.cv-option .file{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-dim);}
+.cv-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--text-dim);font-size:22px;line-height:1;cursor:pointer;padding:4px;}
+.cv-close:hover{color:var(--text);}
+
+/* ---------- Print / "Save as PDF" layout ---------- */
+@page{size:A4;margin:12mm 13mm;}
+@media print{
+  :root{
+    --bg:#fff;--bg-panel:#fff;--bg-panel-2:#fff;
+    --border:#d0d7de;--border-soft:#e3e8ee;
+    --text:#111;--text-muted:#333;--text-dim:#666;
+    --cyan:#1f4e79;--violet:#2e75b6;
+    --cyan-soft:transparent;--violet-soft:transparent;
+  }
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  html,body{background:#fff;font-size:10pt;line-height:1.4;}
+  body::before,header.topbar,.hero-prompt,.hero h1 .cursor,.btn.download,.cv-modal,footer,.card-award svg{display:none !important;}
+  .wrap{max-width:none;padding:0;}
+  .reveal,.js-anim .reveal{opacity:1 !important;transform:none !important;transition:none !important;}
+  a{color:var(--text);text-decoration:none;}
+
+  .hero{padding:0 0 8px;text-align:center;border-bottom:2px solid #1f4e79;}
+  .hero h1{font-size:24pt;color:#1f4e79;margin:0;}
+  .hero .role{margin:2px 0;font-size:10.5pt;}
+  .hero .loc{margin:0 0 4px;font-size:9pt;}
+  .hero-actions{justify-content:center;gap:4px 14px;}
+  .btn{border:none;padding:0;font-size:9pt;color:var(--text-muted);background:none !important;}
+  .btn svg{width:10px;height:10px;}
+
+  section{padding:10px 0 2px;border-top:none;}
+  .eyebrow{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11pt;color:#1f4e79;text-transform:uppercase;letter-spacing:.04em;
+    margin:0 0 6px;padding-bottom:2px;border-bottom:1px solid #2e75b6;break-after:avoid;}
+  .eyebrow::before{content:none;}
+  .about p{font-size:9.5pt;max-width:none;text-align:justify;}
+
+  .timeline{padding-left:0;}
+  .timeline::before,.tl-item::before{display:none;}
+  .tl-item{padding-bottom:8px;break-inside:avoid;}
+  .tl-title{font-size:10.5pt;}
+  .tl-org{font-size:9.5pt;margin-bottom:2px;}
+  .tl-date{font-size:8.5pt;}
+  .tl-item ul,.card ul{margin:2px 0 3px;font-size:9pt;}
+  .tl-item li,.card li{margin-bottom:1px;}
+  .tl-tech{font-size:8pt;}
+
+  .projects-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .card{padding:8px 10px;break-inside:avoid;transform:none !important;}
+  .card-title{font-size:10pt;margin-bottom:0;}
+  .card-meta{font-size:8pt;}
+  .card-award{font-size:8pt;margin-bottom:2px;}
+  .tag{font-size:7.5pt;padding:1px 5px;border-color:#c9d6e3;}
+
+  .skills-grid{grid-template-columns:repeat(4,1fr);gap:8px 14px;}
+  .skill-cat{font-size:8.5pt;margin-bottom:3px;}
+  .skill-tag{font-size:7.5pt;padding:1px 6px;}
+
+  .cert-list li,.other-list li{padding:4px 0;break-inside:avoid;}
+  .cert-name,.other-list .ot-title{font-size:9.5pt;}
+  .cert-org,.cert-desc,.other-list p{font-size:9pt;}
+  .cert-year,.other-list .ot-meta{font-size:8pt;}
+
+  .flag-box{padding:6px 10px;margin-bottom:6px;break-inside:avoid;border-color:#c9d6e3;}
+  .flag-box .flag-line{display:none;}
+  .flag-box h3{font-size:10pt;margin:0 0 1px;}
+  .flag-box p{font-size:9pt;}
+
+  .bottom-grid{gap:20px;break-inside:avoid;}
+  .bottom-grid h3{font-size:10pt;margin-bottom:4px;}
+  .bottom-grid p,.lang-row{font-size:9pt;}
+  .lang-row{padding:3px 0;}
+  .eyebrow{font-size:0 !important;gap:0;}
+  .projects-grid{grid-template-columns:1fr !important;gap:6px;}
+  .card{padding:6px 10px;}
+  .eyebrow::after{content:attr(data-title);font-size:11pt;}
+  .tags{gap:0;margin-top:2px;}
+  .tag,.skill-tag{border:none !important;background:none !important;padding:0 !important;border-radius:0;font-family:'Inter',sans-serif;}
+  .tag{font-size:8pt;color:#2e75b6;}
+  .tag:not(:last-child)::after,.skill-tag:not(:last-child)::after{content:" · ";color:#999;white-space:pre;}
+  .skills-grid{grid-template-columns:1fr 1fr;gap:2px 20px;}
+  .skills-grid > div{display:flex;gap:6px;align-items:baseline;}
+  .skill-cat{min-width:72px;margin:0;font-weight:600;}
+  .skill-tags{gap:0;}
+  .skill-tag{font-size:8.5pt;color:#333;}
+}
 </style>
 </head>
 <body>
@@ -292,6 +394,10 @@ footer{padding:40px 0 60px;}
     <div class="role">Full-Stack Developer<span class="sep">·</span><span class="accent">Computer Science Student</span><span class="sep">·</span>CTF Competitor</div>
     <div class="loc mono">Galați, Romania</div>
     <div class="hero-actions">
+      <button type="button" class="btn download" id="download-pdf">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>
+        Download CV (PDF)
+      </button>
       <a class="btn primary" href="mailto:cerneabogdanandrei@gmail.com">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
         cerneabogdanandrei@gmail.com
@@ -314,14 +420,14 @@ footer{padding:40px 0 60px;}
 
 <section class="about">
   <div class="wrap reveal">
-    <div class="eyebrow">cat about.md</div>
+    <div class="eyebrow" data-title="Profile">cat about.md</div>
     <p>Full-Stack Developer with proven experience building scalable web applications using TypeScript, NestJS and React. Hands-on expertise in relational database architecture, Docker containerisation, real-time systems, machine learning and computer vision. Final-year Computer Science &amp; IT student at "Dunarea de Jos" University (Galati, Romania), with a strong portfolio of complex projects, real-world internships and 1st-place finishes in AI cyber-defence and industrial robotics hackathons.</p>
   </div>
 </section>
 
 <section class="experience">
   <div class="wrap reveal">
-    <div class="eyebrow">git log --experience</div>
+    <div class="eyebrow" data-title="Experience">git log --experience</div>
     <div class="timeline">
 
       <div class="tl-item">
@@ -386,19 +492,8 @@ footer{padding:40px 0 60px;}
 
 <section class="projects">
   <div class="wrap reveal">
-    <div class="eyebrow">ls ~/projects</div>
+    <div class="eyebrow" data-title="Projects">ls ~/projects</div>
     <div class="projects-grid">
-
-      <div class="card">
-        <div class="card-title">CTI Timetable Application</div>
-        <div class="card-meta">WindRiver Internship + University Project · 5-person team · ongoing</div>
-        <ul>
-          <li>Full-stack academic timetable application for the faculty, with LDAP-secured authentication.</li>
-          <li>Frontend built in React and TypeScript; API connectivity and student sorting in Python.</li>
-          <li>Containerised deployment with Docker for dev/prod consistency.</li>
-        </ul>
-        <div class="tags"><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Python</span><span class="tag">NestJS</span><span class="tag">Prisma</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">LDAP</span></div>
-      </div>
 
       <div class="card">
         <div class="card-title">Autonomous Robotic Arm — DOFBOT</div>
@@ -436,18 +531,6 @@ footer{padding:40px 0 60px;}
       </div>
 
       <div class="card">
-        <div class="card-title">Hydrogen Cogeneration Station</div>
-        <div class="card-meta">Team project · Future Energy Solutions</div>
-        <div class="card-award"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>1st Mention, E.ON Energy Challenge</div>
-        <ul>
-          <li>Research and prototyping of a hydrogen-based cogeneration station.</li>
-          <li>Argued the necessity of an anti-flashback valve over the rudimentary bubbling system.</li>
-          <li>Presented the technical solution to the national jury.</li>
-        </ul>
-        <div class="tags"><span class="tag">Research</span><span class="tag">Prototyping</span><span class="tag">Thermodynamics</span><span class="tag">Safety Systems</span></div>
-      </div>
-
-      <div class="card">
         <div class="card-title">GurmandFit — Nutrition Blog Modernisation</div>
         <div class="card-meta">Personal project · ongoing</div>
         <ul>
@@ -478,24 +561,13 @@ footer{padding:40px 0 60px;}
         <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PHP (PDO)</span><span class="tag">MySQL</span></div>
       </div>
 
-      <div class="card">
-        <div class="card-title">Car Service Management Desktop App</div>
-        <div class="card-meta">Academic Internship, Faculty ACIEE · 2025</div>
-        <ul>
-          <li>Desktop app for managing clients, vehicles, bookings and interventions.</li>
-          <li>MVC architecture with DAO classes; role-based auth and dynamic panels.</li>
-          <li>Modern Swing GUI with switchable Dark Mode.</li>
-        </ul>
-        <div class="tags"><span class="tag">Java</span><span class="tag">Swing</span><span class="tag">JDBC</span><span class="tag">MySQL</span></div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <section class="skills">
   <div class="wrap reveal">
-    <div class="eyebrow">grep -r "skills" ./stack</div>
+    <div class="eyebrow" data-title="Technical Skills">grep -r "skills" ./stack</div>
     <div class="skills-grid">
       <div>
         <div class="skill-cat">languages</div>
@@ -531,7 +603,7 @@ footer{padding:40px 0 60px;}
 
 <section class="certifications">
   <div class="wrap reveal">
-    <div class="eyebrow">cat certifications.log</div>
+    <div class="eyebrow" data-title="Certifications">cat certifications.log</div>
     <ul class="cert-list">
       <li>
         <span class="cert-name">Elements of AI</span>
@@ -546,27 +618,8 @@ footer{padding:40px 0 60px;}
         <span class="cert-desc">AI in search &amp; social media, misinformation/bias in AI content, data collection, data mining fundamentals.</span>
       </li>
       <li>
-        <span class="cert-name">PC Operator</span>
-        <span class="cert-org">— Word, Excel, PowerPoint — Social Trade</span>
-        <span class="cert-year">2022</span>
-        <span class="cert-desc">Computer operation course covering the Office suite.</span>
-      </li>
-      <li>
-        <span class="cert-name">Entrepreneurship</span>
-        <span class="cert-org">— Social Trade</span>
-        <span class="cert-year">2022</span>
-        <span class="cert-desc">Fundamentals of starting and growing a business.</span>
-      </li>
-      <li>
-        <span class="cert-name">Social Entrepreneurship</span>
-        <span class="cert-org">— Social Trade</span>
-        <span class="cert-year">2025</span>
-        <span class="cert-desc">Full business plan for an eco-friendly cafe (GreenBrew) — model, SMART goals, financial &amp; risk plan.</span>
-      </li>
-      <li>
-        <span class="cert-name">Financial-Accounting Entrepreneurship</span>
-        <span class="cert-org">— UGAL</span>
-        <span class="cert-desc">Course within the study programme, focused on financial-accounting management.</span>
+        <span class="cert-name">Other courses</span>
+        <span class="cert-desc">PC Operator / MS Office (2022) · Entrepreneurship (2022) · Social Entrepreneurship (2025) — Social Trade · Financial-Accounting Entrepreneurship — UGAL</span>
       </li>
     </ul>
   </div>
@@ -574,7 +627,7 @@ footer{padding:40px 0 60px;}
 
 <section class="achievements">
   <div class="wrap reveal">
-    <div class="eyebrow">cat achievements.log</div>
+    <div class="eyebrow" data-title="Competitions &amp; Awards">cat achievements.log</div>
 
     <div class="flag-box">
       <div class="flag-line"><span class="k">$</span> ./ai_cyber_defense --event="ZTS XIII" --rank=1</div>
@@ -629,7 +682,7 @@ footer{padding:40px 0 60px;}
 
 <section class="edu-lang">
   <div class="wrap reveal">
-    <div class="eyebrow">cat education.yml languages.yml</div>
+    <div class="eyebrow" data-title="Education &amp; Languages">cat education.yml languages.yml</div>
     <div class="bottom-grid">
       <div>
         <h3>Education</h3>
@@ -640,11 +693,28 @@ footer{padding:40px 0 60px;}
       <div>
         <h3>Languages</h3>
         <div class="lang-row"><span class="lname">Romanian</span><span class="llevel">Native</span></div>
-        <div class="lang-row"><span class="lname">English</span><span class="llevel">B1+ · Cambridge Certificate (2018)</span></div>
+        <div class="lang-row"><span class="lname">English</span><span class="llevel">B2</span></div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="cv-modal" id="cv-modal" role="dialog" aria-modal="true" aria-labelledby="cv-modal-title">
+  <div class="cv-modal-box">
+    <button type="button" class="cv-close" id="cv-close" aria-label="Close">&times;</button>
+    <div class="flag-line"><span class="k">$</span> wget cv.pdf --lang=?</div>
+    <h3 id="cv-modal-title">Download CV</h3>
+    <p>Choose the language / Alege limba:</p>
+    <div class="cv-options">
+      <a class="cv-option" href="CV_Cernea_Bogdan_Andrei_RO.pdf" download>
+        <span class="lang">Română</span><span class="file">CV_..._RO.pdf</span>
+      </a>
+      <a class="cv-option" href="CV_Cernea_Bogdan_Andrei_EN.pdf" download>
+        <span class="lang">English</span><span class="file">CV_..._EN.pdf</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -676,6 +746,30 @@ footer{padding:40px 0 60px;}
       }
     }
     type();
+  }
+
+  // Print layout (Ctrl+P): show full name and all sections, suggest a file name.
+  var pageTitle = document.title;
+  function beforePrint(){
+    if(h1){ i = full.length + 1; h1.childNodes[0].nodeValue = full; }
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    document.title = "CV_Cernea_Bogdan_Andrei"; // suggested PDF file name
+  }
+  function afterPrint(){ document.title = pageTitle; }
+  window.addEventListener('beforeprint', beforePrint);
+  window.addEventListener('afterprint', afterPrint);
+  // Download CV button: opens a language picker (RO / EN), each option downloads the PDF CV.
+  var dl = document.getElementById('download-pdf');
+  var modal = document.getElementById('cv-modal');
+  var closeBtn = document.getElementById('cv-close');
+  function openModal(){ modal.classList.add('open'); var first = modal.querySelector('.cv-option'); if(first) first.focus(); }
+  function closeModal(){ modal.classList.remove('open'); if(dl) dl.focus(); }
+  if(dl && modal){
+    dl.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    modal.querySelectorAll('.cv-option').forEach(function(a){ a.addEventListener('click', function(){ setTimeout(closeModal, 150); }); });
   }
 
   var items = document.querySelectorAll('.reveal');
